@@ -1,7 +1,11 @@
 package zeanzai.me.member.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel(description= "自行车")
 public class Vehicle {
     /**
      *
@@ -10,6 +14,7 @@ public class Vehicle {
      *
      * @mbg.generated Thu May 26 23:17:38 CST 2022
      */
+    @ApiModelProperty(value = "id")
     private String id;
 
     /**
@@ -19,6 +24,7 @@ public class Vehicle {
      *
      * @mbg.generated Thu May 26 23:17:38 CST 2022
      */
+    @ApiModelProperty(value = "会员id")
     private String memberId;
 
     /**
@@ -28,6 +34,7 @@ public class Vehicle {
      *
      * @mbg.generated Thu May 26 23:17:38 CST 2022
      */
+    @ApiModelProperty(value = "会员名称")
     private String plateNo;
 
     /**

@@ -30,6 +30,7 @@
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
 		<fastjson.version>1.2.62</fastjson.version>
 		<swagger.version>2.8.0</swagger.version>
+		<swagger-bootstrap-ui.version>1.9.1</swagger-bootstrap-ui.version>
 
 		<nacos-config-spring-boot.version>0.2.1</nacos-config-spring-boot.version>
 		<mybatis.starter.version>2.1.1</mybatis.starter.version>
@@ -82,6 +83,12 @@
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
+			<!--添加改造swagger2的UI-->
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>swagger-bootstrap-ui</artifactId>
+				<version>${swagger-bootstrap-ui.version}</version>
+			</dependency>
 
 			<!-- nacos -->
 			<dependency>
@@ -102,6 +109,10 @@
 				<artifactId>mybatis-spring-boot-starter</artifactId>
 				<version>${mybatis.starter.version}</version>
 			</dependency>
+			<!--<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-devtools</artifactId>
+			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 </project>

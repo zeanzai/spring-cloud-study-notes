@@ -1,5 +1,7 @@
 package zeanzai.me.member.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +17,13 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/vehicle")
+@Api(value = "测试管理", tags = { "测试模块" })
 public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
 
+    @ApiOperation(value = "新增", tags = {"test"}, notes = "新增一个自行车")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public CommonResult<Integer> addVehicle(String json) throws BusinessException {
         log.debug("add vehicle = " + json);
@@ -29,6 +33,7 @@ public class VehicleController {
         return result;
     }
 
+    @ApiOperation("列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Vehicle> list() throws BusinessException {
         return vehicleService.list();
