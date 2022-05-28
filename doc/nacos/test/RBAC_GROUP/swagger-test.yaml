@@ -1,0 +1,14 @@
+spring:
+  swagger:
+    basePackage: me.zeanzai.rbac.controller
+    author:
+      name: zeanzai.me-test
+      email: zeanzai.me@gmail.com
+      url: https://zeanzai.me
+    apiInfo:
+      title: 权限模块-test
+      description: 系统用户、系统菜单、系统角色等模块相关接口
+      version: 1.0
+      termsOfServiceUrl: http://ip:${server.port}/${spring.application.name}
+      license: license
+      licenseUrl: licenseUrl

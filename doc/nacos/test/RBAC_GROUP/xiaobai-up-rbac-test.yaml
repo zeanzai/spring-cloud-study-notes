@@ -1,0 +1,28 @@
+server:
+  port: 9001
+spring:
+#  application:
+#    ## 指定服务名称，在nacos中的名字
+#    name: xiaobai-up-rbac
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xiaobai_up?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: root1003
+  cloud:
+    nacos:
+      discovery:
+        # nacos的服务地址，nacos-server中IP地址:端口号
+        server-addr: 127.0.0.1:8848
+        namespace: 5793931c-ffab-42bf-ae52-c430974085c3
+
+mybatis:
+  type-aliases-package: me.zeanzai.rbac.entity
+  mapper-locations: classpath:mybatis/*.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        ## yml文件中存在特殊字符，必须用单引号包含，否则启动报错
+        include: '*'
