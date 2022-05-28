@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+  <!-- 本地 mysql 驱动位置 -->
+  <classPathEntry location="D:\Repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar" />
+
+  <context id="mysqlTables" targetRuntime="MyBatis3">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.124.21:3306/xiaobai_up?useUnicode=true" userId="root"
+                        password="root1003">
+                        <property name="useInformationSchema" value="true"/>
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <!-- 生成 model 实体类文件位置 -->
+    <javaModelGenerator targetPackage="me.zeanzai.rbac.entity" targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+    <sqlMapGenerator targetPackage="mybatis"  targetProject="src/main/resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+    <javaClientGenerator type="XMLMAPPER" targetPackage="me.zeanzai.rbac.mapper"  targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <table tableName="sys_user" domainObjectName="SysUser">
+      <generatedKey column="user_id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+      <!--<generatedKey column="id" sqlStatement="mysql" type="post" identity="true"/>-->
+    </table>
+    <table tableName="sys_role" domainObjectName="SysRole">
+      <generatedKey column="role_id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table>
+    <table tableName="sys_menu" domainObjectName="SysMenu">
+      <generatedKey column="menu_id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table>
+    <table tableName="sys_user_role" domainObjectName="SysUserRole">
+      <generatedKey column="id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table>
+    <table tableName="sys_role_menu" domainObjectName="SysRoleMenu">
+      <generatedKey column="id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table>
+    <table tableName="sys_user_token" domainObjectName="SysUserToken">
+      <generatedKey column="user_id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table>
+     <!-- <table tableName="member" domainObjectName="Member">
+    	<generatedKey column="id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table> -->
+    <!--<table tableName="vehicle" domainObjectName="Vehicle">
+    	<generatedKey column="id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table>-->
+    <!-- <table tableName="month_card" domainObjectName="MonthCard">
+    	<generatedKey column="id" sqlStatement="SELECT REPLACE(UUID(), '-', '')"/>
+    </table> -->
+  </context>
+</generatorConfiguration>
