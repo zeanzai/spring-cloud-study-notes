@@ -1,0 +1,52 @@
+server:
+  port: 9006
+
+spring:
+  main:
+    allow-bean-definition-overriding: true # 定义了两个 接口OpenFeignPaymentService和OpenFeignService，也就是说有两个feign的客户端，如果不加上该配置，会报错，启动不起来
+  cloud:
+    nacos:
+      discovery:
+        # nacos的服务地址，nacos-server中IP地址:端口号
+        server-addr: 127.0.0.1:8848
+        # 命名空间要不要都可以
+        #namespace: 5793931c-ffab-42bf-ae52-c430974085c3
+      config:
+        namespace: 5793931c-ffab-42bf-ae52-c430974085c3
+#        group: PROVIDER_GROUP
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - dataId: swagger-share.yaml
+            group: RBAC_GROUP
+            refresh: true
+  swagger:
+    basePackage: me.zeanzai.consumer.controller
+
+feign:
+  ## 开启sentinel的熔断降级
+  sentinel:
+    enabled: true
+  client:
+    config:
+      ## default 设置的全局超时时间，指定服务名称可以设置单个服务的超时时间
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+      # 为provider服务单独设置一个超时时间，如果超过这个时间就报错
+      provider:
+        connectTimeout: 30000
+        readTimeout: 30000
+
+logging:
+  level:
+    ## cn.myjszl.service这里是包名，也可以配置特定的openFeign接口
+    me.zeanzai.consumer.service: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        ## yml文件中存在特殊字符，必须用单引号包含，否则启动报错
+        include: '*'

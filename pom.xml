@@ -9,7 +9,9 @@
 	<modules>
         <module>xiaobai-up-rbac</module>
         <module>xiaobai-up-common</module>
-        <!-- <module>parking-message</module>
+        <module>provider</module>
+		<module>consumer</module>
+		<!-- <module>parking-message</module>
         <module>parking-resource</module>
         <module>parking-charging</module>
         <module>parking-card</module>

@@ -1,0 +1,29 @@
+server:
+  port: 9005
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        # nacos的服务地址，nacos-server中IP地址:端口号
+        server-addr: 127.0.0.1:8848
+        # 命名空间要不要都可以
+        #namespace: 5793931c-ffab-42bf-ae52-c430974085c3
+      config:
+        namespace: 5793931c-ffab-42bf-ae52-c430974085c3
+#        group: PROVIDER_GROUP
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - dataId: swagger-share.yaml
+            group: RBAC_GROUP
+            refresh: true
+  swagger:
+    basePackage: me.zeanzai.provider.controller
+management:
+  endpoints:
+    web:
+      exposure:
+        ## yml文件中存在特殊字符，必须用单引号包含，否则启动报错
+        include: '*'
