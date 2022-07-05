@@ -1,7 +1,11 @@
 package me.zeanzai.rbac.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel(value = "用户实体类", description = "用户信息描述类")
 public class SysUser {
     /**
      *
@@ -10,6 +14,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "用户id")
     private Long userId;
 
     /**
@@ -19,6 +24,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "用户名称")
     private String username;
 
     /**
@@ -28,6 +34,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "密码")
     private String password;
 
     /**
@@ -37,6 +44,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "密码盐")
     private String salt;
 
     /**
@@ -46,6 +54,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
     /**
@@ -55,6 +64,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "手机号")
     private String mobile;
 
     /**
@@ -64,6 +74,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "状态")
     private Byte status;
 
     /**
@@ -73,6 +84,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "创建用户id")
     private Long createUserId;
 
     /**
@@ -82,6 +94,7 @@ public class SysUser {
      *
      * @mbg.generated Sat May 28 21:51:44 CST 2022
      */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     /**

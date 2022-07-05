@@ -21,6 +21,10 @@ spring:
           - dataId: swagger-share.yaml
             group: RBAC_GROUP
             refresh: true
+    sentinel:
+      transport:
+        dashboard: localhost:8081
+      eager: true
   swagger:
     basePackage: me.zeanzai.consumer.controller
 

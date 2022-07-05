@@ -52,7 +52,7 @@ public class OpenFeignProviderController {
     @PostMapping("/pay")
     @ApiOperation(value = "查询", tags = {"标签"}, notes = "测试超时")
     public String pay(@RequestBody Payment payment) throws InterruptedException {
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
         return payment.toString();
     }
 

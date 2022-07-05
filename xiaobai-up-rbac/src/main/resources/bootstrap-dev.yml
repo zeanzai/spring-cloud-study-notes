@@ -1,4 +1,17 @@
 spring:
+  swagger:
+    basePackage: me.zeanzai.rbac.controller
+    author:
+      name: zeanzai.me-dev
+      email: zeanzai.me@gmail.com
+      url: https://zeanzai.me
+    apiInfo:
+      title: 权限模块-dev
+      description: 系统用户、系统菜单、系统角色等模块相关接口
+      version: 1.0
+      termsOfServiceUrl: http://ip:${server.port}/${spring.application.name}
+      license: license
+      licenseUrl: licenseUrl
   cloud:
     nacos:
       config:
@@ -11,14 +24,16 @@ spring:
         ## 配置内容的数据格式，目前只支持 properties 和 yaml 类型，这个和dataId有关-> ${prefix}-${spring.profiles.active}.${file-extension}
         file-extension: yaml
         refresh-enabled: true
-        extension-configs[0]:
-          dataId: swagger-dev.yaml
-          group: RBAC_GROUP
-          refresh: true
+#        extension-configs[0]:
+#          dataId: swagger-dev.yaml
+#          group: RBAC_GROUP
+#          refresh: true
+#        shared-configs:
+#          - data-id: swagger-dev.yaml
+#            refresh: true
 
 management:
   endpoints:
     web:
       exposure:
-        ## yml文件中存在特殊字符，必须用单引号包含，否则启动报错
         include: '*'

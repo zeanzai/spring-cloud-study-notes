@@ -14,6 +14,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <start-class>me.zeanzai.rbac.XiaobaiUpRbacApplication</start-class>
     </properties>
 
     <dependencies>
@@ -46,6 +47,19 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>com.alibaba.nacos</artifactId>
+                    <groupId>nacos-client</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 重新引用nacos 客户端包-->
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+            <version>1.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -58,21 +72,41 @@
         </dependency>
     </dependencies>
 
+
     <build>
-        <finalName>parking-member-service</finalName>
         <plugins>
             <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.4.0</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <!-- mybatis 用于生成代码的配置文件 -->
-                    <configurationFile>src/test/resources/generatorConfig.xml</configurationFile>
-                    <verbose>true</verbose>
-                    <overwrite>true</overwrite>
+                    <mainClass>${start-class}</mainClass>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+<!--    <build>-->
+<!--        <finalName>parking-member-service</finalName>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.mybatis.generator</groupId>-->
+<!--                <artifactId>mybatis-generator-maven-plugin</artifactId>-->
+<!--                <version>1.4.0</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; mybatis 用于生成代码的配置文件 &ndash;&gt;-->
+<!--                    <configurationFile>src/test/resources/generatorConfig.xml</configurationFile>-->
+<!--                    <verbose>true</verbose>-->
+<!--                    <overwrite>true</overwrite>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>
