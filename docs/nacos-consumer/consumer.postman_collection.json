@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "6fe4ac96-1ac6-4a23-a1d7-e5195c19656b",
+		"name": "consumer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "传递多个参数",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "zhangsan",
+							"type": "default"
+						},
+						{
+							"key": "age",
+							"value": "15",
+							"type": "default"
+						}
+					]
+				},
+				"url": "http://localhost:10100/consumer/test01"
+			},
+			"response": []
+		},
+		{
+			"name": "地址中携带参数",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:10100/consumer/test02/laowang/19"
+			},
+			"response": []
+		},
+		{
+			"name": "传递对象",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:10100/consumer/test03"
+			},
+			"response": []
+		},
+		{
+			"name": "上传文件",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/shawnwang/Downloads/WX20221102-233302.png"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:10100/consumer/test04"
+			},
+			"response": []
+		},
+		{
+			"name": "下载文件",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"path\": \"/Users/shawnwang/Documents/Source/Study/SpringCloud-Alibaba-StudyNotes\",\n    \"fileName\": \"pom.xml\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:10100/consumer/test05"
+			},
+			"response": []
+		}
+	]
+}

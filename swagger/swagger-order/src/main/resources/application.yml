@@ -1,0 +1,17 @@
+server:
+  port: 10700
+
+spring:
+  application:
+    name: swagger-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+        namespace: 616abb81-03c5-4fdb-aa0b-f7138144c1cb
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

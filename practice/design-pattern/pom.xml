@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>me.zeanzai</groupId>
+		<artifactId>zeanzai-starter</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>me.zeanzai</groupId>
+	<artifactId>design-pattern</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>design-pattern</name>
+	<description>design-pattern</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+	        <dependency>
+	            <groupId>org.junit.jupiter</groupId>
+	            <artifactId>junit-jupiter-engine</artifactId>
+	            <scope>test</scope>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.junit.jupiter</groupId>
+	            <artifactId>junit-jupiter-params</artifactId>
+	            <scope>test</scope>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.mockito</groupId>
+	            <artifactId>mockito-core</artifactId>
+	            <scope>test</scope>
+	        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>com.iluwatar.urm</groupId>
+				<artifactId>urm-maven-plugin</artifactId>
+				<version>1.4.8</version>
+				<configuration>
+					<outputDirectory>${project.basedir}/etc</outputDirectory>
+					<packages>
+						<param>com.javacode2018.lesson003.demo1.test0</param>
+					</packages>
+					<ignores>
+					</ignores>
+					<includeMainDirectory>true</includeMainDirectory>
+					<includeTestDirectory>false</includeTestDirectory>
+					<presenter>plantuml</presenter>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>map</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

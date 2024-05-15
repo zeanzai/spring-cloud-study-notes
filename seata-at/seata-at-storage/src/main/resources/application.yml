@@ -1,0 +1,56 @@
+server:
+  port: 10902
+
+spring:
+  application:
+    name: seata-at-storage
+  datasource:
+    url: jdbc:mysql://192.168.1.150:3306/seata_storage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 180000
+      max-lifetime: 0
+      maximum-pool-size: 30
+      minimum-idle: 10
+      pool-name: hikari-pool
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+        namespace: 2cbceeeb-22f5-40d6-b65c-47f673e79f29
+
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+
+# 配置日志级别
+logging:
+  level:
+    root: debug
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}-tx-group
+  config:
+    type: nacos
+    nacos:
+      namespace: bb4ba084-9183-4406-bdf4-9254d372849e
+      server-addr: 192.168.56.10:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      namespace: bb4ba084-9183-4406-bdf4-9254d372849e
+      server-addr: 192.168.56.10:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
