@@ -135,3 +135,5 @@ mvn clean install -P pro
 
 
 可以看到只将`pro/application.properties`进行了编译。
+
+[参考](https://github.com/fantj2016/java-reader/blob/master/6.%20%E9%AB%98%E6%95%88%E5%BC%80%E5%8F%91/6.2%20Maven/1.%20Maven-Profile%E6%8C%89%E7%8E%AF%E5%A2%83%E6%89%93%E5%8C%85.md)
