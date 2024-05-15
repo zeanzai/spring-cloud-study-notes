@@ -10,7 +10,7 @@
 
         <groupId>me.zeanzai</groupId>
         <artifactId>zeanzai-starter</artifactId>
-        <version>0.0.1-20240105.100503-1</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.zeanzai</groupId>
-    <artifactId>spring-cloud-alibaba-study-notes</artifactId>
+    <artifactId>spring-cloud-study-notes</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -13,7 +13,7 @@
         <module>zeanzai-starter</module>
         <module>nacos-as-configer</module>
         <module>nacos-as-register</module>
-<!--        <module>nacos-global-exception</module>-->
+        <module>nacos-global-exception</module>
         <module>gateway-demo</module>
         <module>swagger</module>
 <!--        <module>blank-springboot</module>-->
