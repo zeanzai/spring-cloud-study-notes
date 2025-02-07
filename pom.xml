@@ -28,7 +28,7 @@
         <module>safe-api</module>
 
         <module>una-saas</module>
-        <module>zeanzai-tool</module>
+        <!--<module>zeanzai-tool</module>-->
     </modules>
 
 </project>
