@@ -5,7 +5,7 @@ spring:
   application:
     name: springboot-rabbitmq
   redis:
-    host: 192.168.1.150
+    host: 192.168.10.105
     port: 6379
     password:
     timeout: 5000000
@@ -22,10 +22,10 @@ spring:
 
 
   rabbitmq:
-    host: 192.168.1.150
+    host: 192.168.10.106
     port: 5672
-    username: admin
-    password: admin
+    username: guest
+    password: guest
     virtualHost: /
     listener:
       simple:

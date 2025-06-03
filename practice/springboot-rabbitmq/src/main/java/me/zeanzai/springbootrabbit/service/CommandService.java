@@ -28,4 +28,15 @@ public interface CommandService {
 
 
     // 阻塞队列+多线程方式发送命令
+
+
+    // 批量抄表
+    void sendPatchCmd();
+
+
+    // 模拟 指令结果 返回到队列
+    void sendCmdResultToQueue();
+
+    // 模拟 自动上报 消息
+    void dataReportToQueue();
 }

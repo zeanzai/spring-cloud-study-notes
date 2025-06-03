@@ -25,4 +25,17 @@ public class DeviceCommondInfoEntity implements Serializable {
     private String deviceName;
     private String cmdInfo;
 
+    private Integer recordId;/*设备配置ID*/
+    private Integer buildingId;/*建筑ID*/
+    private Integer equipmentId;
+    private String equipmentName;/*设备名称*/
+    private String concentratorName;/*集中器名称*/
+    private String collectorName;/*采集器名称*/
+    private Integer projectId;/*项目id*/
+    private String configurationPlanName;/*配置方案的名称*/
+    private Integer activeTaskId;
+    private Integer selfcheckTaskId;
+
+
+
 }

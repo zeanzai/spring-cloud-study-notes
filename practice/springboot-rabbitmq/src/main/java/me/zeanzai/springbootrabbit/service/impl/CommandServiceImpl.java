@@ -2,14 +2,18 @@ package me.zeanzai.springbootrabbit.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import me.zeanzai.springbootrabbit.entity.DeviceCommondInfoEntity;
+import me.zeanzai.springbootrabbit.entity.EquipmentEntity;
 import me.zeanzai.springbootrabbit.service.CommandService;
 import me.zeanzai.springbootrabbit.utils.RedisUtil;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,9 +31,12 @@ import java.util.concurrent.Executors;
 public class CommandServiceImpl implements CommandService {
 
     @Autowired
+    private AmqpAdmin amqpAdmin;
+
+    @Resource
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
 
     private Executor THREADPOOL = Executors.newFixedThreadPool(10);
@@ -62,6 +69,60 @@ public class CommandServiceImpl implements CommandService {
     public void sendSingleMsg() {
         DeviceCommondInfoEntity deviceCommondInfoEntity = (DeviceCommondInfoEntity) redisTemplate.opsForList().rightPop("devicecmds");
         rabbitTemplate.convertAndSend("deviceCmdExchange", "deviceBinding", deviceCommondInfoEntity);
+    }
+
+    @Override
+    public void sendPatchCmd(){
+        List equipmentlist = redisTemplate.opsForList().range("equipmentlist", 0, 500);
+        for (int i = 0; i < equipmentlist.size(); i++) {
+            EquipmentEntity equipment = (EquipmentEntity)equipmentlist.get(i);
+            sendMessageToDevice(equipment.getIpcNum(), equipment);
+        }
+
+
+//        // 去数据库中找到要抄表的所有设备的设备id
+//        List<String> equipmentId = new ArrayList<>();
+//        for (int i = 0; i < 100; i++) {
+//            equipmentId.add("alldevicelist:equipmentlist:equipment_" + String.format("%09d", i % 10));
+//        }
+//
+//        // 去redis中找到要抄表的设备列表
+//        String keyPattern = "alldevicelist:equipmentlist:equipment_"+ "*";
+//        ScanOptions options = ScanOptions.scanOptions().match(keyPattern).build();
+//        redisTemplate.executeWithStickyConnection(new RedisCallback<EquipmentEntity>() {
+//            @Override
+//            public EquipmentEntity doInRedis(RedisConnection redisConnection) throws DataAccessException {
+//                Cursor<byte[]> cursor = redisConnection.scan(options);
+//                while (cursor.hasNext()) {
+//                    Object o = redisTemplate.opsForValue().get(cursor.next());
+//                    ObjectMapper objectMapper = new ObjectMapper();
+//                    try {
+//                        EquipmentEntity equipment = objectMapper.readValue((JsonParser) o, EquipmentEntity.class);
+//                        // 发送消息给rabbitmq
+////                        rabbitTemplate.convertAndSend("device.exchange", equipment.getIpcNum(), equipment);
+//                        sendMessageToDevice(equipment.getIpcNum(), equipment);
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//                return null;
+//            }
+//        });
+
+    }
+
+    public void sendMessageToDevice(String ipcid, Object message) {
+        // 动态声明队列和绑定
+        Queue queue = new Queue(ipcid, true);
+        DirectExchange exchange = new DirectExchange("device.exchange");
+        Binding binding = BindingBuilder.bind(queue).to(exchange).with(ipcid);
+
+        amqpAdmin.declareQueue(queue);
+        amqpAdmin.declareExchange(exchange);
+        amqpAdmin.declareBinding(binding);
+
+        // 发送消息
+        rabbitTemplate.convertAndSend("device.exchange", ipcid, message);
     }
 
     @Override
@@ -178,8 +239,8 @@ public class CommandServiceImpl implements CommandService {
         CompletableFuture.allOf(completableFutureArr).join();
 
         log.info("---------> pharse 01, {}", System.currentTimeMillis()-startT);
-
-        redisTemplate.opsForHash().putAll(UUID.randomUUID(), resultMap);
+        String uuid = UUID.randomUUID().toString();
+        redisTemplate.opsForHash().putAll(uuid, resultMap);
 //        redisUtils.hashMSet(UUID.randomUUID(), resultMap);
         List<Map<String, Long>> mapListA = new ArrayList<>();
         Iterator<Map.Entry<String, Long>> iterator = resultMap.entrySet().iterator();
@@ -201,5 +262,41 @@ public class CommandServiceImpl implements CommandService {
     @Override
     public void asyncChaobiao() {
         // 1. 获取所有设备信息，构造抄表命令，之后发送给mq，发送完成后返回确认信息
+    }
+
+    @Override
+    public void sendCmdResultToQueue() {
+        // 动态声明队列和绑定
+        Queue queue = new Queue("cmdresponse", true);
+        DirectExchange exchange = new DirectExchange("ipc.exchange");
+        Binding binding = BindingBuilder.bind(queue).to(exchange).with("response");
+
+        amqpAdmin.declareQueue(queue);
+        amqpAdmin.declareExchange(exchange);
+        amqpAdmin.declareBinding(binding);
+
+        List equipmentlist = redisTemplate.opsForList().range("equipmentlist", 0, 500);
+        for (int i = 0; i < equipmentlist.size(); i++) {
+            EquipmentEntity equipment = (EquipmentEntity)equipmentlist.get(i);// 发送消息
+            rabbitTemplate.convertAndSend("ipc.exchange", "response", equipment);
+        }
+    }
+
+    @Override
+    public void dataReportToQueue() {
+        // 动态声明队列和绑定
+        Queue queue = new Queue("datareport", true);
+        DirectExchange exchange = new DirectExchange("ipc.exchange");
+        Binding binding = BindingBuilder.bind(queue).to(exchange).with("report");
+
+        amqpAdmin.declareQueue(queue);
+        amqpAdmin.declareExchange(exchange);
+        amqpAdmin.declareBinding(binding);
+
+        List equipmentlist = redisTemplate.opsForList().range("equipmentlist", 0, 500);
+        for (int i = 0; i < equipmentlist.size(); i++) {
+            EquipmentEntity equipment = (EquipmentEntity)equipmentlist.get(i);// 发送消息
+            rabbitTemplate.convertAndSend("ipc.exchange", "report", equipment);
+        }
     }
 }

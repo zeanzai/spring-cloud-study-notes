@@ -27,6 +27,25 @@ public class CommandController {
         commandService.sendSingleMsg();
     }
 
+
+    @GetMapping("/sendPatchCmd")
+    public void sendPatchCmd() {
+        commandService.sendPatchCmd();
+    }
+
+    @GetMapping("/sendCmdResultToQueue")
+    public void sendCmdResultToQueue() {
+        commandService.sendCmdResultToQueue();
+    }
+
+
+    @GetMapping("/dataReportToQueue")
+    public void dataReportToQueue() {
+        commandService.dataReportToQueue();
+    }
+
+
+
     @GetMapping("/syncChaobiao")
     public void syncChaobiao() {
         commandService.syncChaobiao();
